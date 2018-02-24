@@ -39,7 +39,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.prefs.MaterialListPreference;
-import com.tomer.alwayson.activities.DonateActivity;
 import com.tomer.alwayson.activities.Picker;
 import com.tomer.alwayson.activities.PreferencesActivity;
 import com.tomer.alwayson.activities.ReporterActivity;
@@ -120,7 +119,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                                 Utils.openURL(getActivity(), "https://play.google.com/store/apps/details?id=com.google.android.tts");
                             return true;
                         } else {
-                            DonateActivity.quicklyPromptToSupport(getActivity(), rootView);
                             return false;
                         }
                     case ACTION_FLASHLIGHT:
@@ -131,7 +129,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                             }
                             return true;
                         } else {
-                            DonateActivity.quicklyPromptToSupport(getActivity(), rootView);
                             return false;
                         }
                 }
@@ -454,10 +451,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                                 if (Globals.ownedItems.size() > 0) {
                                     prefs.setString(Prefs.KEYS.FONT.toString(), String.valueOf(which));
                                     dialog.dismiss();
-                                } else
-                                    DonateActivity.quicklyPromptToSupport(getActivity(), rootView);
-                            } else {
-                                DonateActivity.quicklyPromptToSupport(getActivity(), rootView);
+                                }
                             }
                         } else {
                             prefs.setString("font", String.valueOf(which));
