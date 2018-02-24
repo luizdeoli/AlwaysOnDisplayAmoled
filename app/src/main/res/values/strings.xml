@@ -5,7 +5,6 @@
     <string name="unlock">Turn the screen on</string>
     <string name="action_revert">Revert</string>
     <string name="menu_feedback">Feedback</string>
-    <string name="menu_rate">Rate the app</string>
     <string name="action_restart">Restart now</string>
     <string name="never_show_again">Never show again</string>
     <!--Intro-->
@@ -32,10 +31,7 @@
     <string name="developer_github">Fork me on GitHub</string>
     <string name="developer_patreon">Check me out on Patreon</string>
     <!--Feedback,Toasts & messages-->
-    <string name="thanks">Thank you for your support! :)</string>
     <string name="notification_message">Always On Is Running</string>
-    <string name="toast_thanks">Thank you</string>
-    <string name="toast_thanks_rate">Thanks you! Please rate the app on play store :)</string>
     <!--Quick settings-->
     <string name="quick_settings_title">Always on</string>
     <string name="quick_settings_service_active">enabled</string>

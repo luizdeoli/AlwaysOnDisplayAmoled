@@ -160,9 +160,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
             case R.id.translate:
                 Utils.openURL(this, "https://crowdin.com/project/always-on-amoled");
                 return true;
-            case R.id.rate:
-                SettingsFragment.openPlayStoreUrl(getPackageName(), this);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
