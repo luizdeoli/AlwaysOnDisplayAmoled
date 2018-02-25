@@ -163,32 +163,17 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         list.setDivider(null);
         prefs = new Prefs(context);
         prefs.apply();
+
         if (hasSoftKeys()) {
             findPreference(BACK_BUTTON).setEnabled(false);
-        } else {
-            if (!prefs.neverShowPluginDialog) {
-                if (!isPackageInstalled("tomer.com.alwaysonamoledplugin")) { //Prompt to install the plugin
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                    alertDialogBuilder
-                            .setTitle(getString(R.string.plugin_dialog_title))
-                            .setMessage(getString(R.string.plugin_dialog_desc))
-                            .setPositiveButton("Download", (dialogInterface, i) -> {
-                                openPlayStoreUrl("tomer.com.alwaysonamoledplugin", context);
-                                dialogInterface.dismiss();
-                            })
-                            .setCancelable(false);
-                    if (prefs.showedPluginDialog)
-                        alertDialogBuilder.setNeutralButton(getString(R.string.never_show_again), (dialogInterface, i) -> prefs.setBool(Prefs.KEYS.NEVER_SHOW_DIALOG.toString(), true));
-                    alertDialogBuilder.show();
-                    prefs.setBool(Prefs.KEYS.SHOWED_DIALOG.toString(), true);
-                }
-            }
         }
+
         if (!Utils.isSamsung(context)) {
             PreferenceScreen gesturesPrefs = (PreferenceScreen) findPreference("gestures_prefs");
             PreferenceCategory samsungPrefs = (PreferenceCategory) findPreference("samsung_prefs");
             gesturesPrefs.removePreference(samsungPrefs);
         }
+
         version(context);
         openSourceLicenses();
     }
@@ -509,49 +494,5 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    private void temporaryUnusedFunctionToSetAppToOpen() {
-        //Todo fix open app/shortcut from service
-        /*
-        for (final String KEY : wakeUpList) {
-            findPreference(KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) { //Support for opening apps/shortcuts after gesture.
-                     if (o.toString().equals("open_app")) {
-                        Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
-                        List<ResolveInfo> shortcuts = context.getPackageManager().queryIntentActivities(shortcutsIntent, 0);
-                        final String[][] apps = new String[3][shortcuts.size()];
-                        for (int i = 0; i < shortcuts.size(); i++) {
-                            apps[0][i] = (String) shortcuts.get(i).loadLabel(context.getPackageManager());
-                            apps[1][i] = shortcuts.get(i).activityInfo.targetActivity;
-                            apps[2][i] = shortcuts.get(i).activityInfo.packageName;
-                        }
-                        new MaterialDialog.Builder(getActivity())
-                                .title(R.string.settings_gestures_select_app)
-                                .items(apps[0])
-                                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                    @Override
-                                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-
-                                        Intent intent = new Intent();
-                                        intent.setComponent(new ComponentName(apps[2][which], apps[1][which]));
-                                        startActivityForResult(intent, 5);
-                                        if (view != null) {
-                                            prefs.setString(KEY + "_app", apps[1][which]);
-                                            Utils.logDebug("Selected shortcut ", apps[1][which]);
-                                        }
-                                        return true;
-                                    }
-                                })
-                                .positiveText(android.R.string.ok)
-                                .show();
-                    } else {
-                        prefs.getSharedPrefs().edit().remove(KEY + "_app").apply();
-                    }
-                    return true;
-                }
-            });
-        }*/
     }
 }

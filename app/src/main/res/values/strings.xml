@@ -6,7 +6,6 @@
     <string name="action_revert">Revert</string>
     <string name="menu_feedback">Feedback</string>
     <string name="action_restart">Restart now</string>
-    <string name="never_show_again">Never show again</string>
     <!--Intro-->
     <string name="intro_allow_now">Allow now</string>
     <string name="intro_permissions">Read phone state</string>
@@ -44,8 +43,6 @@
     <string name="widget_on">On</string>
     <!--Device admin-->
     <!--Plugin-->
-    <string name="plugin_dialog_title">Plugin is required</string>
-    <string name="plugin_dialog_desc">Seems like your device has hardware buttons, to make them turn off when the service is running, please install the plugin.</string>
     <!--Errors-->
     <string name="error">Error</string>
     <string name="error_IAP">Error! Please make sure that you are connected to the internet and restart the app</string>
