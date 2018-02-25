@@ -152,15 +152,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
             case R.id.uninstall:
                 uninstall(this, prefs);
                 return true;
-            case R.id.community:
-                Utils.openURL(this, "https://plus.google.com/communities/104206728795122451273");
-                return true;
-            case R.id.github:
-                Utils.openURL(this, "https://github.com/rosenpin/AlwaysOnDisplayAmoled");
-                return true;
-            case R.id.translate:
-                Utils.openURL(this, "https://crowdin.com/project/always-on-amoled");
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
