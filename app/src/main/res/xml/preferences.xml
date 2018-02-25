@@ -11,32 +11,30 @@
         <PreferenceScreen
             android:summary="@string/settings_rules_desc"
             android:title="@string/settings_rules">
-            <PreferenceCategory android:title="@string/settings_rules">
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:dialogTitle="@string/settings_stop_delay_desc_short_message"
-                    android:entries="@array/delays"
-                    android:entryValues="@array/delays_vals"
-                    android:key="stop_delay"
-                    android:summary="%s"
-                    android:title="@string/settings_stop_delay" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="always"
-                    android:dialogTitle="@string/settings_rules_desc"
-                    android:entries="@array/rules_charging"
-                    android:entryValues="@array/rules_charging_vals"
-                    android:key="rules"
-                    android:summary="%s"
-                    android:title="@string/settings_rules_cahrging" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:dialogTitle="@string/settings_rules_desc"
-                    android:entries="@array/rules_battery"
-                    android:entryValues="@array/rules_battery_vals"
-                    android:key="battery_rules"
-                    android:summary="%s"
-                    android:title="@string/settings_rules_battery" />
-            </PreferenceCategory>
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/settings_stop_delay_desc_short_message"
+                android:entries="@array/delays"
+                android:entryValues="@array/delays_vals"
+                android:key="stop_delay"
+                android:summary="%s"
+                android:title="@string/settings_stop_delay" />
+            <ListPreference
+                android:defaultValue="always"
+                android:dialogTitle="@string/settings_rules_desc"
+                android:entries="@array/rules_charging"
+                android:entryValues="@array/rules_charging_vals"
+                android:key="rules"
+                android:summary="%s"
+                android:title="@string/settings_rules_cahrging" />
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/settings_rules_desc"
+                android:entries="@array/rules_battery"
+                android:entryValues="@array/rules_battery_vals"
+                android:key="battery_rules"
+                android:summary="%s"
+                android:title="@string/settings_rules_battery" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="gestures_prefs"
@@ -51,43 +49,41 @@
                     android:summary="@string/settings_gestures_home_button_dismiss_desc"
                     android:title="@string/settings_gestures_home_button_dismiss" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/settings_wake_up">
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="1"
-                    android:entries="@array/gestures_actions"
-                    android:entryValues="@array/gestures_actions_vals"
-                    android:key="double_tap_action"
-                    android:summary="%s"
-                    android:title="@string/settings_double_tap_wake" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:entries="@array/gestures_actions"
-                    android:entryValues="@array/gestures_actions_vals"
-                    android:key="swipe_up_action"
-                    android:summary="%s"
-                    android:title="@string/settings_swipe_up" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:entries="@array/gestures_actions"
-                    android:entryValues="@array/gestures_actions_vals"
-                    android:key="swipe_down_action"
-                    android:summary="%s"
-                    android:title="@string/settings_swipe_down" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:entries="@array/gestures_actions"
-                    android:entryValues="@array/gestures_actions_vals"
-                    android:key="volume_keys_action"
-                    android:summary="%s"
-                    android:title="@string/settings_volume_to_stop" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                    android:defaultValue="0"
-                    android:entries="@array/gestures_actions"
-                    android:entryValues="@array/gestures_actions_vals"
-                    android:key="back_button_action"
-                    android:summary="%s"
-                    android:title="@string/settings_back_button_wake" />
-            </PreferenceCategory>
+            <ListPreference
+                android:defaultValue="1"
+                android:entries="@array/gestures_actions"
+                android:entryValues="@array/gestures_actions_vals"
+                android:key="double_tap_action"
+                android:summary="%s"
+                android:title="@string/settings_double_tap_wake" />
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/gestures_actions"
+                android:entryValues="@array/gestures_actions_vals"
+                android:key="swipe_up_action"
+                android:summary="%s"
+                android:title="@string/settings_swipe_up" />
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/gestures_actions"
+                android:entryValues="@array/gestures_actions_vals"
+                android:key="swipe_down_action"
+                android:summary="%s"
+                android:title="@string/settings_swipe_down" />
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/gestures_actions"
+                android:entryValues="@array/gestures_actions_vals"
+                android:key="volume_keys_action"
+                android:summary="%s"
+                android:title="@string/settings_volume_to_stop" />
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/gestures_actions"
+                android:entryValues="@array/gestures_actions_vals"
+                android:key="back_button_action"
+                android:summary="%s"
+                android:title="@string/settings_back_button_wake" />
             <PreferenceCategory android:title="@string/settings_shortcuts">
                 <CheckBoxPreference
                     android:defaultValue="false"
@@ -118,7 +114,7 @@
                     android:key="watchface_date"
                     android:summary="@string/settings_watchface_date_desc"
                     android:title="@string/settings_watchface_date" />
-                <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                <ListPreference
                     android:defaultValue="0"
                     android:dialogTitle="@string/settings_watchface_battery"
                     android:entries="@array/customize_battery"
@@ -170,7 +166,7 @@
             </PreferenceCategory>
         </PreferenceScreen>
 
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <ListPreference
             android:defaultValue="vertical"
             android:dialogTitle="@string/settings_orientation"
             android:entries="@array/orientations"
@@ -185,7 +181,7 @@
             android:max="200"
             android:summary="@string/settings_brightness_desc"
             android:title="@string/settings_brightness" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <ListPreference
             android:defaultValue="0"
             android:dialogTitle="@string/settings_exit_animation_desc"
             android:entries="@array/animations"
@@ -222,7 +218,7 @@
             android:key="startafterlock"
             android:summary="@string/settings_startafterlock_desc"
             android:title="@string/settings_startafterlock" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <ListPreference
             android:defaultValue="1"
             android:dialogTitle="@string/settings_move_desc"
             android:entries="@array/settings_move"

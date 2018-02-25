@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -38,7 +39,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.prefs.MaterialListPreference;
 import com.tomer.alwayson.activities.Picker;
 import com.tomer.alwayson.activities.PreferencesActivity;
 import com.tomer.alwayson.activities.ReporterActivity;
@@ -137,7 +137,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         }
         checkNotificationsPermission(context, false);
         starterService = new Intent(getActivity().getApplicationContext(), StarterService.class);
-        Utils.logDebug(String.valueOf(((MaterialListPreference) findPreference("rules")).getValue()), " Selected");
+        Utils.logDebug(String.valueOf(((ListPreference) findPreference("rules")).getValue()), " Selected");
     }
 
     @Override
@@ -479,7 +479,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         if (shouldEnableNotificationsAlerts && checkNotificationsPermission(context, false)) {
             ((TwoStatePreference) findPreference("notifications_alerts")).setChecked(true);
         }
-        if (((MaterialListPreference) findPreference("stop_delay")).getValue().equals("0"))
+        if (((ListPreference) findPreference("stop_delay")).getValue().equals("0"))
             findPreference("stop_delay").setSummary(R.string.settings_stop_delay_desc);
         else
             findPreference("stop_delay").setSummary("%s");

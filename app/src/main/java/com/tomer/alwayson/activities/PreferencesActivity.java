@@ -64,13 +64,14 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
         super.onCreate(savedInstanceState);
         prefs = new Prefs(getApplicationContext());
         prefs.apply();
+
         if (!prefs.permissionGranting) {
             startActivity(new Intent(getApplicationContext(), Intro.class));
             finish();
         } else {
             setContentView(R.layout.activity_main);
             getFragmentManager().beginTransaction()
-                    .replace(R.id.preferences_holder, new SettingsFragment())
+                    .replace(R.id.preferences_container, new SettingsFragment())
                     .commitAllowingStateLoss();
 
             handlePermissions();
