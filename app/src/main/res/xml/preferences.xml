@@ -233,11 +233,6 @@
             android:title="@string/settings_proximity" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_watchface_miscellaneous">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="greenify_enabled"
-            android:summary="@string/settings_greenify_integration_desc"
-            android:title="@string/settings_greenify_integration" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="disable_volume_keys"

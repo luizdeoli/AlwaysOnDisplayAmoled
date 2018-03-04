@@ -23,7 +23,6 @@ public class Prefs {
     public boolean startAfterLock;
     public boolean notificationPreview;
     public boolean homeButtonDismiss;
-    public boolean greenifyEnabled;
     boolean hasSoftKeys;
     public boolean raiseToWake = true;
 
@@ -78,7 +77,6 @@ public class Prefs {
         permissionGranting = prefs.getBoolean(KEYS.PERMISSION_GRANTING.toString(), false);
         disableVolumeKeys = prefs.getBoolean(KEYS.DISABLE_VOLUME_KEYS.toString(), true);
         hasSoftKeys = prefs.getBoolean(KEYS.HAS_SOFT_KEYS.toString(), false);
-        greenifyEnabled = prefs.getBoolean(KEYS.GREENIFY.toString(), false);
         startAfterLock = prefs.getBoolean(KEYS.START_AFTER_LOCK.toString(), true);
         notificationPreview = prefs.getBoolean(KEYS.NOTIFICATION_PREVIEW.toString(), true);
         stopOnGoogleNow = prefs.getBoolean(KEYS.STOP_ON_GOOGLE_NOW.toString(), false);
@@ -197,7 +195,6 @@ public class Prefs {
         START_AFTER_LOCK("startafterlock"),
         NOTIFICATION_PREVIEW("notifications_alerts_preview"),
         MEMO_TEXT("memo_text"),
-        GREENIFY("greenify_enabled"),
         EXIT_ANIMATION("exit_animation"),
         SHOWED_DIALOG("showed_dialog"),
         NEVER_SHOW_DIALOG("never_show_dialog"),

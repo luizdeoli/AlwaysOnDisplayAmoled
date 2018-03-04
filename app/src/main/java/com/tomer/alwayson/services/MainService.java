@@ -46,7 +46,6 @@ import com.tomer.alwayson.helpers.BrightnessManager;
 import com.tomer.alwayson.helpers.CurrentAppResolver;
 import com.tomer.alwayson.helpers.DisplaySize;
 import com.tomer.alwayson.helpers.Flashlight;
-import com.tomer.alwayson.helpers.GreenifyStarter;
 import com.tomer.alwayson.helpers.Prefs;
 import com.tomer.alwayson.helpers.SamsungHelper;
 import com.tomer.alwayson.helpers.TTS;
@@ -301,17 +300,6 @@ public class MainService extends Service implements SensorEventListener, Context
         if(Globals.newNotification() == null){
             notificationsMessageBox.clearNotificationBox();
         }
-
-
-        //Turn screen on
-        new Handler().postDelayed(
-                () -> {
-                    if (Globals.isServiceRunning) {
-                        //Greenify integration
-                        new GreenifyStarter(getApplicationContext()).start(prefs.greenifyEnabled && !demo);
-                    }
-                },
-                400);
 
         //Start the current app resolver and stop the service accordingly
         currentAppResolver = new CurrentAppResolver(this, new int[]{prefs.stopOnCamera ? CurrentAppResolver.CAMERA : 0, prefs.stopOnGoogleNow ? CurrentAppResolver.GOOGLE_NOW : 0});

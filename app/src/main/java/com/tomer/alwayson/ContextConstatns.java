@@ -3,7 +3,6 @@ package com.tomer.alwayson;
 import android.service.notification.NotificationListenerService;
 
 import com.tomer.alwayson.activities.PreferencesActivity;
-import com.tomer.alwayson.helpers.GreenifyStarter;
 import com.tomer.alwayson.receivers.BootReceiver;
 import com.tomer.alwayson.receivers.ChargeChangeReceiver;
 import com.tomer.alwayson.receivers.ScreenReceiver;
@@ -29,7 +28,6 @@ public interface ContextConstatns {
     String WAKE_LOCK_TAG = "StayAwakeWakeLock";
     String MAIN_SERVICE_LOG_TAG = MainService.class.getSimpleName();
     String MAIN_ACTIVITY_LOG_TAG = PreferencesActivity.class.getSimpleName();
-    String GREENIFY_STARTER = GreenifyStarter.class.getSimpleName();
     String NOTIFICATION_LISTENER_TAG = NotificationListenerService.class.getSimpleName();
     String UNLOCK_RECEIVER_TAG = UnlockReceiver.class.getSimpleName();
     String WIDGET_UPDATER_TAG = WidgetUpdater.class.getSimpleName();

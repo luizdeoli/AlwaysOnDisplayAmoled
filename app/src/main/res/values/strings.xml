@@ -139,14 +139,12 @@
     <string name="settings_translate">Translate</string>
     <string name="settings_github">GitHub</string>
     <string name="settings_community">Community</string>
-    <string name="settings_greenify_integration">Greenify integration</string>
     <string name="settings_developer">Developer</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_uninstall">Uninstall</string>
     <string name="settings_exit_animation">Animation</string>
     <string name="settings_raise_to_wake">Raise to wake</string>
     <string name="settings_app_version">Version</string>
-    <string name="settings_enable_greenify">Enable Greenify</string>
     <!--Settings descriptions-->
     <string name="settings_stop_on_camera_desc">Stop the always on screen when the camera is launched</string>
     <string name="settings_auto_brightness_desc">Dim the screen when in dark environment automatically (Sensors may use more battery)</string>
@@ -204,9 +202,6 @@
     <string name="settings_move_disable">Disabled (Not recommended for AMOLED screens)</string>
     <string name="settings_move_move">Move the widget automatically</string>
     <string name="settings_move_animation">Move the widget automatically with an animation</string>
-    <string name="settings_greenify_integration_desc">Enable Greenify while the always on service is visible to significantly improve battery life. Make sure to enable Greenify in the accessibility settings</string>
-    <string name="settings_greenify_integration_desc_found">Make sure to enable Greenify in the accessibility settings and choose the apps you want it to hibernate while the device is locked. Click here to configure Greenify</string>
-    <string name="settings_greenify_integration_desc_not_found">Install Greenify to improve battery life</string>
     <string name="settings_notifications_alerts_preview_desc">Show notification content when received</string>
     <string name="settings_notifications_alerts_preview">Notification content</string>
     <string name="settings_memo_text_desc">Write your memo here</string>

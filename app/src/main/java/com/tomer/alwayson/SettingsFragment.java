@@ -32,7 +32,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ListView;
@@ -49,7 +48,6 @@ import com.tomer.alwayson.services.StarterService;
 import com.tomer.alwayson.views.FontAdapter;
 import com.tomer.alwayson.views.SeekBarPreference;
 
-import java.io.IOException;
 import java.util.List;
 
 import de.psdev.licensesdialog.LicensesDialog;
@@ -68,14 +66,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private Intent starterService;
     private ComponentName mAdminName;
 
-    public static void openPlayStoreUrl(String appName, Context context) {
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)));
-        } catch (Exception e) {
-            Utils.openURL(context, "https://play.google.com/store/apps/details?id=" + appName);
-        }
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +77,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         findPreference("enabled").setOnPreferenceChangeListener(this);
         findPreference("persistent_notification").setOnPreferenceChangeListener(this);
         findPreference("raise_to_wake").setOnPreferenceChangeListener(this);
-        findPreference("greenify_enabled").setOnPreferenceChangeListener(this);
         findPreference("proximity_to_lock").setOnPreferenceChangeListener(this);
         findPreference("startafterlock").setOnPreferenceChangeListener(this);
         findPreference("notifications_alerts").setOnPreferenceChangeListener(this);
@@ -334,12 +323,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         }
         if (preference.getKey().equals("startafterlock") && !(boolean) o)
             Snackbar.make(rootView, R.string.warning_4_device_not_secured, 10000).setAction(R.string.action_revert, v -> ((CheckBoxPreference) preference).setChecked(true)).show();
-        if (preference.getKey().equals("greenify_enabled") && (boolean) o) {
-            if (!isPackageInstalled("com.oasisfeng.greenify")) {
-                openPlayStoreUrl("com.oasisfeng.greenify", context);
-                return false;
-            }
-        }
         if (preference.getKey().equals("camera_shortcut") || preference.getKey().equals("google_now_shortcut")) {
             try {
                 if (!hasUsageAccess()) {
@@ -456,10 +439,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             findPreference("stop_delay").setSummary("%s");
         findPreference("watchface_clock").setSummary(context.getResources().getStringArray(R.array.customize_clock)[prefs.clockStyle]);
         findPreference("watchface_date").setSummary(context.getResources().getStringArray(R.array.customize_date)[prefs.dateStyle]);
-        findPreference("greenify_enabled").setSummary(isPackageInstalled("com.oasisfeng.greenify") ? context.getString(R.string.settings_greenify_integration_desc) : context.getString(R.string.settings_greenify_integration_desc_not_found));
-        if (!isPackageInstalled("com.oasisfeng.greenify")) {
-            ((SwitchPreference) findPreference("greenify_enabled")).setChecked(false);
-        }
     }
 
     @Override
