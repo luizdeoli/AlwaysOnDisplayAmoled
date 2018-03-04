@@ -32,7 +32,6 @@ public class Prefs {
     public int stopDelay;
     public int moveWidget;
     public int batteryRules;
-    public int font;
     public int memoTextSize;
     public int exitAnimation;
     public int doubleTapAction, swipeUpAction, swipeDownAction, volumeButtonsAction, backButtonAction;
@@ -90,7 +89,6 @@ public class Prefs {
         moveWidget = Integer.parseInt(prefs.getString(KEYS.MOVE_WIDGET.toString(), "1"));
         stopDelay = Integer.parseInt(prefs.getString(KEYS.STOP_DELAY.toString(), "0"));
         batteryRules = Integer.parseInt(prefs.getString(KEYS.BATTERY_RULES.toString(), "0"));
-        font = Integer.parseInt(prefs.getString(KEYS.FONT.toString(), "0"));
         exitAnimation = Integer.parseInt(prefs.getString(KEYS.EXIT_ANIMATION.toString(), "0"));
         clockStyle = Integer.parseInt(prefs.getString(KEYS.TIME_STYLE.toString(), "1"));
         dateStyle = Integer.parseInt(prefs.getString(KEYS.DATE_STYLE.toString(), "1"));
@@ -191,7 +189,6 @@ public class Prefs {
         STOP_ON_GOOGLE_NOW("google_now_shortcut"),
         BATTERY_RULES("battery_rules"),
         NOTIFICATION_ALERTS("notifications_alerts"),
-        FONT("font"),
         START_AFTER_LOCK("startafterlock"),
         NOTIFICATION_PREVIEW("notifications_alerts_preview"),
         MEMO_TEXT("memo_text"),

@@ -87,7 +87,7 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
             Clock analogClock = (Clock) view.findViewById(R.id.clock);
             TextView title = (TextView) view.findViewById(R.id.clock_name);
             title.setText(context.getResources().getTextArray(R.array.customize_clock)[position]);
-            analogClock.setStyle(context, position, 40, prefs.textColor, prefs.showAmPm, Typeface.SANS_SERIF);
+            analogClock.setStyle(context, position, 40, prefs.textColor, prefs.showAmPm);
             if (position == S7_DIGITAL)
                 if (analogClock.getDigitalS7() != null) {
                     analogClock.getDigitalS7().setDate(Utils.getDateText(context, true));
@@ -114,7 +114,7 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
             DateView dateView = (DateView) view.findViewById(R.id.date);
             TextView title = (TextView) view.findViewById(R.id.clock_name);
             title.setText(context.getResources().getTextArray(R.array.customize_date)[position]);
-            dateView.setDateStyle(position, 90, prefs.textColor, Typeface.SANS_SERIF);
+            dateView.setDateStyle(position, 90, prefs.textColor);
             dateView.update(Utils.getDateText(context, false));
             if (position == prefs.dateStyle)
                 select(view);

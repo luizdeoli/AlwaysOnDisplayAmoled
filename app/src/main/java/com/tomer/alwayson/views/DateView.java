@@ -28,7 +28,7 @@ public class DateView extends LinearLayout implements ContextConstatns {
         addView(inflater.inflate(R.layout.date, null));
     }
 
-    public void setDateStyle(int dateStyle, float textSize, int textColor, @Nullable Typeface font) {
+    public void setDateStyle(int dateStyle, float textSize, int textColor) {
         LinearLayout dateWrapper = (LinearLayout) getChildAt(0);
         this.dateStyle = dateStyle;
         if (calendarTV == null)
@@ -42,7 +42,6 @@ public class DateView extends LinearLayout implements ContextConstatns {
             case DATE_TEXT:
                 calendarTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, (textSize / 5));
                 calendarTV.setTextColor(textColor);
-                calendarTV.setTypeface(font);
                 dateWrapper.removeView(calendarView);
                 break;
             case DATE_VIEW:

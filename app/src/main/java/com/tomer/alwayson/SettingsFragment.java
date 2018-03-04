@@ -14,16 +14,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
@@ -37,7 +33,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.tomer.alwayson.activities.Picker;
 import com.tomer.alwayson.activities.PreferencesActivity;
 import com.tomer.alwayson.activities.ReporterActivity;
@@ -45,7 +40,6 @@ import com.tomer.alwayson.helpers.Prefs;
 import com.tomer.alwayson.helpers.Utils;
 import com.tomer.alwayson.receivers.DAReceiver;
 import com.tomer.alwayson.services.StarterService;
-import com.tomer.alwayson.views.FontAdapter;
 import com.tomer.alwayson.views.SeekBarPreference;
 
 import java.util.List;
@@ -87,7 +81,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         findPreference("watchface_date").setOnPreferenceClickListener(this);
         findPreference("textcolor").setOnPreferenceClickListener(this);
         findPreference("uninstall").setOnPreferenceClickListener(this);
-        findPreference("font").setOnPreferenceClickListener(this);
         ((SeekBarPreference) findPreference("font_size")).setMin(20);
         PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this);
         String[] gesturePreferencesList = {DOUBLE_TAP, SWIPE_UP, SWIPE_DOWN, VOLUME_KEYS, BACK_BUTTON};
@@ -356,23 +349,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         } else if (preference.getKey().equals("uninstall")) {
             Utils.logDebug(MAIN_ACTIVITY_LOG_TAG, "uninstall clicked");
             PreferencesActivity.uninstall(context, prefs);
-        } else if (preference.getKey().equals("font")) {
-            final FontAdapter fontAdapter = new FontAdapter(context, R.array.fonts);
-            new MaterialDialog.Builder(getActivity())
-                    .title(R.string.settings_choose_font)
-                    .backgroundColor(Color.BLACK)
-                    .titleColor(Color.WHITE)
-                    .adapter(fontAdapter, (dialog, itemView, which, text) -> {
-                        if (which > 5) {
-                            prefs.setString(Prefs.KEYS.FONT.toString(), String.valueOf(which));
-                            dialog.dismiss();
-                        } else {
-                            prefs.setString("font", String.valueOf(which));
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-            return false;
         } else if (preference.getKey().equals("watchface_clock")) {
             Intent intent = new Intent(context, Picker.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -32,7 +32,7 @@ public class Clock extends LinearLayout implements ContextConstatns {
         addView(inflater.inflate(R.layout.clock, null));
     }
 
-    public void setStyle(Context context, int clockStyle, float textSize, int textColor, boolean showAmPm, Typeface font) {
+    public void setStyle(Context context, int clockStyle, float textSize, int textColor, boolean showAmPm) {
         LinearLayout clockWrapper = (LinearLayout) findViewById(R.id.clock_wrapper);
         analogClock = (CustomAnalogClock) clockWrapper.findViewById(R.id.custom_analog_clock);
         ViewGroup.LayoutParams lp = clockWrapper.findViewById(R.id.custom_analog_clock).getLayoutParams();
@@ -54,7 +54,6 @@ public class Clock extends LinearLayout implements ContextConstatns {
                 } else {
                     textClock.setTextLocale(context.getResources().getConfiguration().locale);
                 }
-                textClock.setTypeface(font);
 
                 clockWrapper.removeView(clockWrapper.findViewById(R.id.custom_analog_clock));
                 clockWrapper.removeView(clockWrapper.findViewById(R.id.s7_digital));
@@ -93,7 +92,7 @@ public class Clock extends LinearLayout implements ContextConstatns {
                 if (textSize < 50 && prefs.batteryStyle == 1)
                     textSize = 50;
                 digitalS7 = (DigitalS7) findViewById(R.id.s7_digital);
-                digitalS7.init(font, textSize, textColor);
+                digitalS7.init(textSize, textColor);
                 break;
             case FLAT_CLOCK:
                 clockWrapper.removeView(clockWrapper.findViewById(R.id.digital_clock));

@@ -28,7 +28,7 @@ public class BatteryView extends LinearLayout {
         addView(inflater.inflate(R.layout.battery, null));
     }
 
-    public void init(Context context, DigitalS7 digitalS7, int batteryStyle, boolean s7_digital, int textColor, float textSize, Typeface font) {
+    public void init(Context context, DigitalS7 digitalS7, int batteryStyle, boolean s7_digital, int textColor, float textSize) {
         this.context = context;
         this.style = batteryStyle;
         LinearLayout batteryWrapper = (LinearLayout) findViewById(R.id.battery_wrapper);
@@ -43,7 +43,6 @@ public class BatteryView extends LinearLayout {
                     batteryTV.setTextColor(textColor);
                     batteryIV.setColorFilter(textColor, PorterDuff.Mode.SRC_ATOP);
 
-                    batteryTV.setTypeface(font);
                     batteryTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) (textSize * 0.2 * 1));
                     ViewGroup.LayoutParams batteryIVlp = batteryIV.getLayoutParams();
                     batteryIVlp.height = (int) (textSize);

@@ -115,12 +115,7 @@
                     android:title="@string/settings_watchface_battery" />
 
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/settings_watchface_text_font">
-                <Preference
-                    android:defaultValue="0"
-                    android:key="font"
-                    android:summary="@string/settings_choose_font"
-                    android:title="@string/settings_font" />
+            <PreferenceCategory android:title="@string/settings_watchface_text">
                 <com.tomer.alwayson.views.SeekBarPreference
                     android:defaultValue="80"
                     android:dialogTitle="@string/settings_font_size_desc"

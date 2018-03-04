@@ -55,7 +55,6 @@ import com.tomer.alwayson.receivers.UnlockReceiver;
 import com.tomer.alwayson.views.BatteryView;
 import com.tomer.alwayson.views.Clock;
 import com.tomer.alwayson.views.DateView;
-import com.tomer.alwayson.views.FontAdapter;
 import com.tomer.alwayson.views.IconsWrapper;
 import com.tomer.alwayson.views.MessageBox;
 import com.tomer.alwayson.views.MusicPlayer;
@@ -315,14 +314,12 @@ public class MainService extends Service implements SensorEventListener, Context
     }
 
     private void setUpElements() {
-        Typeface font = FontAdapter.getFontByNumber(this, prefs.font);
-
         clock = (Clock) mainView.findViewById(R.id.clock);
-        clock.setStyle(this, prefs.clockStyle, prefs.textSize, prefs.textColor, prefs.showAmPm, font);
+        clock.setStyle(this, prefs.clockStyle, prefs.textSize, prefs.textColor, prefs.showAmPm);
 
         LinearLayout batteryWrapper = (LinearLayout) mainView.findViewById(prefs.clockStyle != S7_DIGITAL ? R.id.battery_wrapper : R.id.s7_battery_wrapper);
         batteryView = (BatteryView) mainView.findViewById(R.id.battery);
-        batteryView.init(this, clock.getDigitalS7(), prefs.batteryStyle, prefs.clockStyle == S7_DIGITAL, prefs.textColor, prefs.textSize, font);
+        batteryView.init(this, clock.getDigitalS7(), prefs.batteryStyle, prefs.clockStyle == S7_DIGITAL, prefs.textColor, prefs.textSize);
 
         if (prefs.clockStyle == S7_DIGITAL) {
             prefs.dateStyle = DISABLED;
@@ -332,11 +329,10 @@ public class MainService extends Service implements SensorEventListener, Context
         }
 
         dateView = (DateView) mainView.findViewById(R.id.date);
-        dateView.setDateStyle(prefs.dateStyle, prefs.textSize, prefs.textColor, font);
+        dateView.setDateStyle(prefs.dateStyle, prefs.textSize, prefs.textColor);
         TextView memoTV = (TextView) mainView.findViewById(R.id.memo_tv);
         if (!prefs.memoText.isEmpty()) {
             memoTV.setText(prefs.memoText);
-            memoTV.setTypeface(font);
             memoTV.setTextColor(prefs.textColor);
             memoTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, (prefs.memoTextSize));
         } else
