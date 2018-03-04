@@ -17,8 +17,7 @@ public class Globals {
     public static boolean waitingForApp = false;
     public static Map<String, NotificationListener.NotificationHolder> notifications = new ConcurrentHashMap<>();
     public static ColorChooserDialog.Builder colorDialog;
-    public static ArrayList<String> ownedItems;
-    
+
     public static String newNotification() {
         if (Globals.notifications != null)
             for (Map.Entry<String, NotificationListener.NotificationHolder> entry : Globals.notifications.entrySet()) {

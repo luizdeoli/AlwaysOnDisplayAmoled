@@ -99,23 +99,15 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     case ACTION_UNLOCK:
                         return true;
                     case ACTION_SPEAK:
-                        if (isSupporter()) {
-                            if (!isPackageInstalled("com.google.android.tts"))
-                                Utils.openURL(getActivity(), "https://play.google.com/store/apps/details?id=com.google.android.tts");
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        if (!isPackageInstalled("com.google.android.tts"))
+                            Utils.openURL(getActivity(), "https://play.google.com/store/apps/details?id=com.google.android.tts");
+                        return true;
                     case ACTION_FLASHLIGHT:
-                        if (isSupporter()) {
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
-                                return false;
-                            }
-                            return true;
-                        } else {
+                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
                             return false;
                         }
+                        return true;
                 }
                 return true;
             });
@@ -129,14 +121,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public void onSaveInstanceState(Bundle outState) {
         outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
-    }
-
-    private boolean isSupporter() {
-        if (Globals.ownedItems != null) {
-            Utils.logDebug("Purchased items", String.valueOf(Globals.ownedItems));
-            return Globals.ownedItems.size() > 0;
-        }
-        return false;
     }
 
     @Override
@@ -380,12 +364,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     .titleColor(Color.WHITE)
                     .adapter(fontAdapter, (dialog, itemView, which, text) -> {
                         if (which > 5) {
-                            if (Globals.ownedItems != null) {
-                                if (Globals.ownedItems.size() > 0) {
-                                    prefs.setString(Prefs.KEYS.FONT.toString(), String.valueOf(which));
-                                    dialog.dismiss();
-                                }
-                            }
+                            prefs.setString(Prefs.KEYS.FONT.toString(), String.valueOf(which));
+                            dialog.dismiss();
                         } else {
                             prefs.setString("font", String.valueOf(which));
                             dialog.dismiss();
