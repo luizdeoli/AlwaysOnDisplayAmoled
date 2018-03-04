@@ -106,7 +106,6 @@
     <string name="settings_shortcuts">Shortcuts</string>
     <string name="settings_wake_up">Gestures &amp; actions</string>
     <string name="settings_rules">Automatic Rules</string>
-    <string name="settings_samsung">Samsung</string>
     <!--Settings titles-->
     <string name="settings_enabled">Enable</string>
     <string name="settings_disable_volume_keys">Disable volume keys</string>

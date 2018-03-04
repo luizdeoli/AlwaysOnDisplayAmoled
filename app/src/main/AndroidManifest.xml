@@ -72,10 +72,6 @@
             android:parentActivityName=".activities.PreferencesActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activities.SamsungHomeWatcherActivity"
-            android:excludeFromRecents="true"
-            android:showOnLockScreen="true" />
-        <activity
             android:name=".activities.PreferencesActivity"
             android:theme="@style/AppTheme">
             <intent-filter>

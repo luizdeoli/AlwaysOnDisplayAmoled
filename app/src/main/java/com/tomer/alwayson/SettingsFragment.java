@@ -153,12 +153,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             findPreference(BACK_BUTTON).setEnabled(false);
         }
 
-        if (!Utils.isSamsung(context)) {
-            PreferenceScreen gesturesPrefs = (PreferenceScreen) findPreference("gestures_prefs");
-            PreferenceCategory samsungPrefs = (PreferenceCategory) findPreference("samsung_prefs");
-            gesturesPrefs.removePreference(samsungPrefs);
-        }
-
         version(context);
         openSourceLicenses();
     }
@@ -302,7 +296,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             restartService();
         }
         if (preference.getKey().equals("proximity_to_lock")) {
-            if (Utils.isAndroidNewerThanL() && !Build.MANUFACTURER.equalsIgnoreCase("samsung"))
+            if (Utils.isAndroidNewerThanL())
                 return true;
             else {
                 DevicePolicyManager mDPM = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
