@@ -17,7 +17,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.tomer.alwayson.ContextConstatns;
-import com.tomer.alwayson.Globals;
 import com.tomer.alwayson.R;
 import com.tomer.alwayson.helpers.Prefs;
 import com.tomer.alwayson.helpers.Utils;
@@ -43,10 +42,6 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
         toolbar.setTitle(R.string.settings_watchface_clock_desc);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.md_nav_back));
         toolbar.setNavigationOnClickListener(item -> finish());
-    }
-
-    private boolean shouldUpdate(int position) {
-        return position <= 2 || Globals.ownedItems != null && Globals.ownedItems.size() > 0;
     }
 
     class CustomGridViewAdapter extends BaseAdapter implements ContextConstatns {
@@ -101,17 +96,13 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
                     analogClock.getDigitalS7().update(prefs.showAmPm);
                     analogClock.getDigitalS7().findViewById(R.id.s7_date_tv).getLayoutParams().width = 150;
                 }
-            if (position <= ANALOG_CLOCK || (Globals.ownedItems != null && Globals.ownedItems.size() > 0))
-                view.findViewById(R.id.pro_label).setVisibility(View.INVISIBLE);
 
             if (position == prefs.clockStyle)
                 select(view);
 
             view.setOnClickListener(v -> {
-                if (shouldUpdate(position)) {
-                    select(view);
-                    prefs.setString(Prefs.KEYS.TIME_STYLE.toString(), String.valueOf(position));
-                }
+                select(view);
+                prefs.setString(Prefs.KEYS.TIME_STYLE.toString(), String.valueOf(position));
             });
             return view;
         }
