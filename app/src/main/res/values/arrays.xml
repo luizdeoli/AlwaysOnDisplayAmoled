@@ -159,14 +159,6 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="support_items">
-        <item>@string/support_1</item>
-        <item>@string/support_2</item>
-        <item>@string/support_5</item>
-        <item>@string/support_10</item>
-        <item>@string/support_20</item>
-    </string-array>
-
     <string-array name="settings_move">
         <item>@string/settings_move_disable</item>
         <item>@string/settings_move_move</item>

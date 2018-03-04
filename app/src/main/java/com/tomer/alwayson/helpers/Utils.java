@@ -1,6 +1,5 @@
 package com.tomer.alwayson.helpers;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,13 +8,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.text.format.DateUtils;
@@ -33,22 +30,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Utils implements ContextConstatns {
-
-    private static Boolean isSamsung;
-
-    public static boolean isPackageInstalled(Context context, String packageName) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    public static boolean isGooglePlayInstalled(Context context){
-        return isPackageInstalled(context, "com.android.vending");
-    }
 
     public static boolean doesIntentExist(Context context, Intent intent) {
         PackageManager mgr = context.getPackageManager();
@@ -104,32 +85,6 @@ public class Utils implements ContextConstatns {
                             | DateUtils.FORMAT_NO_YEAR).toUpperCase();
     }
 
-    public static void killBackgroundProcesses(Context context) {
-        List<ApplicationInfo> packages;
-        PackageManager pm;
-        pm = context.getPackageManager();
-        packages = pm.getInstalledApplications(0);
-
-        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        String myPackage = context.getPackageName();
-        for (ApplicationInfo packageInfo : packages) {
-            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) continue;
-            if (packageInfo.packageName.equals(myPackage)) continue;
-            mActivityManager.killBackgroundProcesses(packageInfo.packageName);
-        }
-    }
-
-    public static boolean hasModifySecurePermission(Context activity) {
-        try {
-            int originalBatteryMode = Settings.Secure.getInt(activity.getContentResolver(), LOW_POWER, 0);
-            Settings.Secure.putInt(activity.getContentResolver(), LOW_POWER, 1);
-            Settings.Secure.putInt(activity.getContentResolver(), LOW_POWER, originalBatteryMode);
-            return true;
-        } catch (SecurityException ignored) {
-            return false;
-        }
-    }
-
     public static void logDebug(String var1, String var2) {
         if (var1 != null && var2 != null)
             Log.d(var1, var2);
@@ -155,14 +110,6 @@ public class Utils implements ContextConstatns {
 
     public static boolean isAndroidNewerThanN() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
-    }
-
-    public static boolean isSamsung(Context context) {
-        if (isSamsung != null)
-            return isSamsung;
-        else
-            isSamsung = isLauncherInstalled(context, "com.sec.android.app.launcher");
-        return isSamsung;
     }
 
     public static boolean isPhone(Context context) {

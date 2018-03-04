@@ -5,26 +5,7 @@
     <string name="unlock">Turn the screen on</string>
     <string name="action_revert">Revert</string>
     <string name="menu_feedback">Feedback</string>
-    <string name="menu_rate">Rate the app</string>
     <string name="action_restart">Restart now</string>
-    <string name="never_show_again">Never show again</string>
-    <!--Support-->
-    <string name="action_support_the_development">Support The Development</string>
-    <string name="support_how_much">How much would you like to donate?</string>
-    <string name="supporter_feature_only">This feature is only available for supporters, you can choose how much you want to donate to become a supporter, how much would you like to donate?</string>
-    <string name="support_choose">How much would you like to donate?</string>
-    <string name="support_1">Unlock</string>
-    <string name="support_2">Donate</string>
-    <string name="support_5">Big donation</string>
-    <string name="support_10">Awesome donation</string>
-    <string name="support_20">Huge donation</string>
-    <string name="support_25">Super donation!</string>
-    <string name="support_1_desc">Unlock all the premium features in the app and support the development</string>
-    <string name="support_2_desc">Support the development a bit more. Same features as regular unlock.</string>
-    <string name="support_5_desc">Donate to the project and help me continue working on the app. Same features as regular unlock.</string>
-    <string name="support_10_desc">Show that you appreciate the project and keep the development active. Same features as regular unlock.</string>
-    <string name="support_20_desc">Wow! a huge donation! thank you very much! :) Same features as regular unlock.</string>
-    <string name="support_25_desc">Amazing! that\'s a lot of money!! This will really help the project! Same features as regular unlock.</string>
     <!--Intro-->
     <string name="intro_allow_now">Allow now</string>
     <string name="intro_permissions">Read phone state</string>
@@ -49,10 +30,7 @@
     <string name="developer_github">Fork me on GitHub</string>
     <string name="developer_patreon">Check me out on Patreon</string>
     <!--Feedback,Toasts & messages-->
-    <string name="thanks">Thank you for your support! :)</string>
     <string name="notification_message">Always On Is Running</string>
-    <string name="toast_thanks">Thank you</string>
-    <string name="toast_thanks_rate">Thanks you! Please rate the app on play store :)</string>
     <!--Quick settings-->
     <string name="quick_settings_title">Always on</string>
     <string name="quick_settings_service_active">enabled</string>
@@ -65,8 +43,6 @@
     <string name="widget_on">On</string>
     <!--Device admin-->
     <!--Plugin-->
-    <string name="plugin_dialog_title">Plugin is required</string>
-    <string name="plugin_dialog_desc">Seems like your device has hardware buttons, to make them turn off when the service is running, please install the plugin.</string>
     <!--Errors-->
     <string name="error">Error</string>
     <string name="error_IAP">Error! Please make sure that you are connected to the internet and restart the app</string>
@@ -84,7 +60,6 @@
     <string name="warning_7_disable_fingerprint">This might disable the fingerprint sensor functionality, are you sure you want to enable this?</string>
     <string name="warning_8_intro_allow_all">Please allow all permissions</string>
     <string name="warning_9_allow_notification">Please allow notification access for the app</string>
-    <string name="warning_11_no_root">Device must be rooted to use this feature</string>
     <string name="warning_12_please_report">Please let me know what would you like me to add/fix</string>
     <!--Charging rules-->
     <string name="rules_both_charging">Both, while charging and while discharging</string>
@@ -131,7 +106,6 @@
     <string name="settings_shortcuts">Shortcuts</string>
     <string name="settings_wake_up">Gestures &amp; actions</string>
     <string name="settings_rules">Automatic Rules</string>
-    <string name="settings_samsung">Samsung</string>
     <!--Settings titles-->
     <string name="settings_enabled">Enable</string>
     <string name="settings_disable_volume_keys">Disable volume keys</string>
@@ -142,7 +116,6 @@
     <string name="settings_swipe_up">Swipe up action</string>
     <string name="settings_swipe_down">Swipe down action</string>
     <string name="settings_brightness">Brightness</string>
-    <string name="settings_doze">Doze mode</string>
     <string name="settings_google_now_shortcut">Allow \"OK Google\"</string>
     <string name="settings_memo_text">Memo text</string>
     <string name="settings_notifications">Notifications</string>
@@ -165,15 +138,12 @@
     <string name="settings_translate">Translate</string>
     <string name="settings_github">GitHub</string>
     <string name="settings_community">Community</string>
-    <string name="settings_greenify_integration">Greenify integration</string>
     <string name="settings_developer">Developer</string>
     <string name="settings_licenses">Licenses</string>
     <string name="settings_uninstall">Uninstall</string>
     <string name="settings_exit_animation">Animation</string>
     <string name="settings_raise_to_wake">Raise to wake</string>
     <string name="settings_app_version">Version</string>
-    <string name="settings_enable_greenify">Enable Greenify</string>
-    <string name="settings_battery_saver">Battery save mode</string>
     <!--Settings descriptions-->
     <string name="settings_stop_on_camera_desc">Stop the always on screen when the camera is launched</string>
     <string name="settings_auto_brightness_desc">Dim the screen when in dark environment automatically (Sensors may use more battery)</string>
@@ -231,12 +201,8 @@
     <string name="settings_move_disable">Disabled (Not recommended for AMOLED screens)</string>
     <string name="settings_move_move">Move the widget automatically</string>
     <string name="settings_move_animation">Move the widget automatically with an animation</string>
-    <string name="settings_greenify_integration_desc">Enable Greenify while the always on service is visible to significantly improve battery life. Make sure to enable Greenify in the accessibility settings</string>
-    <string name="settings_greenify_integration_desc_found">Make sure to enable Greenify in the accessibility settings and choose the apps you want it to hibernate while the device is locked. Click here to configure Greenify</string>
-    <string name="settings_greenify_integration_desc_not_found">Install Greenify to improve battery life</string>
     <string name="settings_notifications_alerts_preview_desc">Show notification content when received</string>
     <string name="settings_notifications_alerts_preview">Notification content</string>
-    <string name="settings_doze_desc">Enable doze while the always on screen is active to save battery (root only)</string>
     <string name="settings_memo_text_desc">Write your memo here</string>
     <string name="settings_memo_font_size_desc">Set the memo font size</string>
     <string name="settings_gestures_action_flashlight">Toggle flashlight</string>
@@ -244,7 +210,6 @@
     <string name="settings_memo_hint">Type your memo here. It will show up in your always on screen.</string>
     <string name="settings_google_now_shortcut_desc">Stop the always on screen when Google Now is launched by saying OK Google (May not work with the Google Now Launcher)</string>
     <string name="settings_exit_animation_desc">Choose the exit animation</string>
-    <string name="settings_battery_saver_desc">Reduce battery consumption and overheating. Works better with root</string>
     <string name="settings_watchface_date_desc">Choose the date style you want to see</string>
     <string name="settings_gestures_home_button_dismiss_desc">Click the home button to exit the always on screen. This will disable the always on fingerprint sensor.</string>
     <string name="settings_raise_to_wake_desc">Pick your device up to show the always on screen for 10 seconds instead of having the screen visible all the time</string>

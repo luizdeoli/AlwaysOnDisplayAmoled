@@ -1,6 +1,7 @@
 package com.tomer.alwayson;
 
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.telephony.TelephonyManager;
 
 public class Constants {

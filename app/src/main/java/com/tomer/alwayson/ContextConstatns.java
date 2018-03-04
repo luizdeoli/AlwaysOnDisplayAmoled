@@ -3,8 +3,6 @@ package com.tomer.alwayson;
 import android.service.notification.NotificationListenerService;
 
 import com.tomer.alwayson.activities.PreferencesActivity;
-import com.tomer.alwayson.helpers.DozeManager;
-import com.tomer.alwayson.helpers.GreenifyStarter;
 import com.tomer.alwayson.receivers.BootReceiver;
 import com.tomer.alwayson.receivers.ChargeChangeReceiver;
 import com.tomer.alwayson.receivers.ScreenReceiver;
@@ -20,7 +18,6 @@ public interface ContextConstatns {
     float NIGHT_MODE_ALPHA = 0.3f;
 
     //Intent filters
-    String FINISH_HOME_BUTTON_ACTIVITY = "samsung_home_button_activity_finish_self";
     String NEW_NOTIFICATION = "new_notification";
     String TOGGLED = "service toggled";
     String NOTIFICATIONS = "notifications";
@@ -30,21 +27,18 @@ public interface ContextConstatns {
     String WAKE_LOCK_TAG = "StayAwakeWakeLock";
     String MAIN_SERVICE_LOG_TAG = MainService.class.getSimpleName();
     String MAIN_ACTIVITY_LOG_TAG = PreferencesActivity.class.getSimpleName();
-    String GREENIFY_STARTER = GreenifyStarter.class.getSimpleName();
     String NOTIFICATION_LISTENER_TAG = NotificationListenerService.class.getSimpleName();
     String UNLOCK_RECEIVER_TAG = UnlockReceiver.class.getSimpleName();
     String WIDGET_UPDATER_TAG = WidgetUpdater.class.getSimpleName();
     String CHARGER_RECEIVER_LOG_TAG = ChargeChangeReceiver.class.getSimpleName();
     String SCREEN_RECEIVER_LOG_TAG = ScreenReceiver.class.getSimpleName();
     String BOOT_RECEIVER = BootReceiver.class.getSimpleName();
-    String DOZE_MANAGER = DozeManager.class.getSimpleName();
 
     String LOW_POWER = "low_power";
 
     int NOTIFICATION_LISTENER_REQUEST_CODE = 3;
     int CAMERA_PERMISSION_REQUEST_CODE = 5;
     int DEVICE_ADMIN_REQUEST_CODE = 4;
-    int RESULT_BILLING_UNAVAILABLE = 3;
 
     int reportNotificationID = 53;
 

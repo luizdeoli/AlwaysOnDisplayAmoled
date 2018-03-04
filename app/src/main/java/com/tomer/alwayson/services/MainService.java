@@ -42,15 +42,11 @@ import com.tomer.alwayson.ContextConstatns;
 import com.tomer.alwayson.Globals;
 import com.tomer.alwayson.R;
 import com.tomer.alwayson.activities.ReporterActivity;
-import com.tomer.alwayson.helpers.BatterySaver;
 import com.tomer.alwayson.helpers.BrightnessManager;
 import com.tomer.alwayson.helpers.CurrentAppResolver;
 import com.tomer.alwayson.helpers.DisplaySize;
-import com.tomer.alwayson.helpers.DozeManager;
 import com.tomer.alwayson.helpers.Flashlight;
-import com.tomer.alwayson.helpers.GreenifyStarter;
 import com.tomer.alwayson.helpers.Prefs;
-import com.tomer.alwayson.helpers.SamsungHelper;
 import com.tomer.alwayson.helpers.TTS;
 import com.tomer.alwayson.helpers.Utils;
 import com.tomer.alwayson.helpers.ViewUtils;
@@ -71,8 +67,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import eu.chainfire.libsuperuser.Shell;
-
 import static android.hardware.SensorManager.SENSOR_DELAY_UI;
 
 public class MainService extends Service implements SensorEventListener, ContextConstatns {
@@ -88,8 +82,6 @@ public class MainService extends Service implements SensorEventListener, Context
     private int refreshDelay = 12000;
     private FrameLayout blackScreen;
     private Timer refreshTimer;
-    private SamsungHelper samsungHelper;
-    private DozeManager dozeManager;
     private MessageBox notificationsMessageBox;
     private TTS tts;
     private DateView dateView;
@@ -136,7 +128,6 @@ public class MainService extends Service implements SensorEventListener, Context
     };
 
     private BrightnessManager brightnessManager;
-    private BatterySaver batterySaver;
     private boolean nigtModeOn;
 
     @Override
@@ -145,9 +136,9 @@ public class MainService extends Service implements SensorEventListener, Context
             windowParams = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, 65794, -2);
             if (origIntent != null) {
                 demo = origIntent.getBooleanExtra("demo", false);
-                windowParams.type = origIntent.getBooleanExtra("demo", false) ? WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY : Utils.isSamsung(getApplicationContext()) ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+                windowParams.type = origIntent.getBooleanExtra("demo", false) ? WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
             } else
-                windowParams.type = Utils.isSamsung(getApplicationContext()) ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+                windowParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
             if (prefs.orientation.equals("horizontal"))
                 //Setting screen orientation if horizontal
                 windowParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
@@ -161,8 +152,6 @@ public class MainService extends Service implements SensorEventListener, Context
                 }
 
             windowManager.addView(frameLayout, windowParams);
-            if (prefs.homeButtonDismiss)
-                samsungHelper.startHomeButtonListener();
             raiseToWake = origIntent != null && origIntent.getBooleanExtra("raise_to_wake", false);
             if (raiseToWake) {
                 final int delayInMilliseconds = 10000;
@@ -197,18 +186,6 @@ public class MainService extends Service implements SensorEventListener, Context
         Utils.logDebug(MAIN_SERVICE_LOG_TAG, "Main service has started");
         prefs = new Prefs(getApplicationContext());
         prefs.apply();
-
-        //Battery Saver
-        if (prefs.batterySaver) {
-            batterySaver = new BatterySaver(this);
-            batterySaver.setSystemBatterySaver(true);
-            prefs.brightness = prefs.brightness / 2;
-            refreshDelay = refreshDelay * 2;
-            prefs.moveWidget = MOVE_NO_ANIMATION;
-            prefs.stopOnCamera = false;
-            prefs.stopOnGoogleNow = false;
-            Utils.killBackgroundProcesses(this);
-        }
 
         stayAwakeWakeLock = ((PowerManager) getApplicationContext().getSystemService(POWER_SERVICE)).newWakeLock(268435482, WAKE_LOCK_TAG);
         stayAwakeWakeLock.setReferenceCounted(false);
@@ -267,7 +244,7 @@ public class MainService extends Service implements SensorEventListener, Context
 
         //If proximity option is on, set it up
         if (prefs.proximityToLock) {
-            if (Utils.isAndroidNewerThanL() && !Utils.isSamsung(getApplicationContext())) {
+            if (Utils.isAndroidNewerThanL()) {
                 proximityToTurnOff = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, getPackageName() + " wakelock_holder");
                 proximityToTurnOff.acquire();
             } else {
@@ -320,23 +297,6 @@ public class MainService extends Service implements SensorEventListener, Context
             notificationsMessageBox.clearNotificationBox();
         }
 
-
-        //Turn screen on
-        new Handler().postDelayed(
-                () -> {
-                    if (Globals.isServiceRunning) {
-                        //Greenify integration
-                        new GreenifyStarter(getApplicationContext()).start(prefs.greenifyEnabled && !demo);
-                    }
-                },
-                400);
-
-        //Initializing Doze
-        if (prefs.dozeMode) {
-            dozeManager = new DozeManager(this);
-            dozeManager.enterDoze();
-        }
-
         //Start the current app resolver and stop the service accordingly
         currentAppResolver = new CurrentAppResolver(this, new int[]{prefs.stopOnCamera ? CurrentAppResolver.CAMERA : 0, prefs.stopOnGoogleNow ? CurrentAppResolver.GOOGLE_NOW : 0});
         currentAppResolver.executeForCurrentApp(() -> {
@@ -348,12 +308,6 @@ public class MainService extends Service implements SensorEventListener, Context
         //Initialize the TTS engine
         tts = new TTS(this);
 
-        //Samsung stuff
-        samsungHelper = new SamsungHelper(this, prefs);
-        //Initialize current capacitive buttons light
-        samsungHelper.getButtonsLight();
-        //Turn capacitive buttons lights off
-        samsungHelper.setButtonsLight(OFF);
         MainService.initialized = true;
 
         //Turn lights on
@@ -465,17 +419,12 @@ public class MainService extends Service implements SensorEventListener, Context
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (batterySaver != null)
-            batterySaver.setSystemBatterySaver(batterySaver.originalBatterySaverMode);
         MainService.initialized = false;
         unregisterReceiver(newNotificationBroadcast);
         //Dismiss the app listener
         currentAppResolver.destroy();
         //Dismiss music player
         musicPlayer.destroy();
-        //Dismiss doze
-        if (dozeManager != null)
-            dozeManager.exitDoze();
         if (flashlight != null)
             flashlight.destroy();
         //Dismissing the wakelock holder
@@ -491,10 +440,6 @@ public class MainService extends Service implements SensorEventListener, Context
             sensorManager.unregisterListener(this);
         unregisterReceiver(unlockReceiver);
         batteryView.destroy();
-
-        samsungHelper.setButtonsLight(ON);
-        if (prefs.homeButtonDismiss)
-            samsungHelper.destroyHomeButtonListener();
 
         frameLayout.setOnTouchListener(null);
         if (clock.getTextClock() != null)
@@ -533,9 +478,7 @@ public class MainService extends Service implements SensorEventListener, Context
     private void turnScreenOff() {
         new Thread(() -> {
             try {
-                if (Shell.SU.available())
-                    Shell.SU.run("input keyevent 26"); // Screen off using root
-                else if (Utils.hasDeviceAdminPermission(this))
+                if (Utils.hasDeviceAdminPermission(this))
                     ((DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE)).lockNow(); //Screen off using device admin
             } catch (SecurityException e) {
                 if (Utils.hasDeviceAdminPermission(this))
@@ -589,7 +532,7 @@ public class MainService extends Service implements SensorEventListener, Context
     private void showBlackScreen(boolean show) {
         if (blackScreenParams == null) {
             blackScreenParams = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, 65794, -2);
-            blackScreenParams.type = Utils.isSamsung(getApplicationContext()) ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            blackScreenParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         }
         if (blackScreen == null)
             blackScreen = new FrameLayout(this);

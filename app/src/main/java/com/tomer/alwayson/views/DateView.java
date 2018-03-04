@@ -28,17 +28,6 @@ public class DateView extends LinearLayout implements ContextConstatns {
         addView(inflater.inflate(R.layout.date, null));
     }
 
-    private static boolean isBrokenSamsungDevice() {
-        return (Build.MANUFACTURER.equalsIgnoreCase("samsung")
-                && isBetweenAndroidVersions(
-                Build.VERSION_CODES.LOLLIPOP,
-                Build.VERSION_CODES.LOLLIPOP_MR1));
-    }
-
-    private static boolean isBetweenAndroidVersions(int min, int max) {
-        return Build.VERSION.SDK_INT >= min && Build.VERSION.SDK_INT <= max;
-    }
-
     public void setDateStyle(int dateStyle, float textSize, int textColor, @Nullable Typeface font) {
         LinearLayout dateWrapper = (LinearLayout) getChildAt(0);
         this.dateStyle = dateStyle;
@@ -60,12 +49,7 @@ public class DateView extends LinearLayout implements ContextConstatns {
                 calendarView.setOnDateChangeListener((calendarView1, i, i1, i2) -> {
 
                 });
-                if (isBrokenSamsungDevice()) {
-                    dateWrapper.removeView(calendarView);
-                    calendarView = null;
-                    forceUpdate(Utils.getDateText(context,false));
-                } else
-                    dateWrapper.removeView(calendarTV);
+                dateWrapper.removeView(calendarTV);
                 break;
         }
         Utils.logDebug("Calendar style is ", String.valueOf(dateStyle));

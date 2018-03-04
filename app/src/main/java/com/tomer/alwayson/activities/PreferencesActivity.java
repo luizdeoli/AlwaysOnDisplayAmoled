@@ -24,8 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.tomer.alwayson.ContextConstatns;
@@ -38,9 +36,6 @@ import com.tomer.alwayson.receivers.DAReceiver;
 import com.tomer.alwayson.services.MainService;
 import com.tomer.alwayson.services.StarterService;
 
-import eu.chainfire.libsuperuser.Shell;
-import fr.nicolaspomepuy.discreetapprate.AppRate;
-
 public class PreferencesActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback, ContextConstatns {
     private boolean isActive;
     private Prefs prefs;
@@ -51,7 +46,7 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
             ComponentName devAdminReceiver = new ComponentName(context, DAReceiver.class);
             DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
             dpm.removeActiveAdmin(devAdminReceiver);
-            if (prefs.proximityToLock && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && !Shell.SU.available())
+            if (prefs.proximityToLock && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 prefs.setBool(Prefs.KEYS.PROXIMITY_TO_LOCK.toString(), false);
         } catch (Exception ignored) {
         }
@@ -67,21 +62,19 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
         super.onCreate(savedInstanceState);
         prefs = new Prefs(getApplicationContext());
         prefs.apply();
-        DonateActivity.resetPaymentService(this);
+
         if (!prefs.permissionGranting) {
             startActivity(new Intent(getApplicationContext(), Intro.class));
             finish();
         } else {
             setContentView(R.layout.activity_main);
             getFragmentManager().beginTransaction()
-                    .replace(R.id.preferences_holder, new SettingsFragment())
+                    .replace(R.id.preferences_container, new SettingsFragment())
                     .commitAllowingStateLoss();
 
             handlePermissions();
 
             Intent starterServiceIntent = new Intent(getApplicationContext(), StarterService.class);
-
-            donateButtonSetup();
 
             findViewById(R.id.preview).setOnClickListener(view -> {
                 demo = true;
@@ -89,8 +82,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
                 demoService.putExtra("demo", true);
                 startService(demoService);
             });
-
-            appRate();
 
             stopService(starterServiceIntent);
             startService(starterServiceIntent);
@@ -110,31 +101,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
-    }
-
-    private void appRate() {
-        AppRate.with(this).starRating(true).setOnRateListener(new AppRate.OnStarRateListener() {
-            @Override
-            public void onPositiveRating(int starRating) {
-                SettingsFragment.openPlayStoreUrl("com.tomer.alwayson", PreferencesActivity.this);
-                Toast.makeText(PreferencesActivity.this, R.string.toast_thanks_rate, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNegativeRating(int starRating, AppRate appRate) {
-                Toast.makeText(PreferencesActivity.this, R.string.toast_thanks, Toast.LENGTH_LONG).show();
-                appRate.hide();
-            }
-        }).checkAndShow();
-    }
-
-    private void donateButtonSetup() {
-        Button donateButton = (Button) findViewById(R.id.donate);
-        assert donateButton != null;
-        if (Utils.isGooglePlayInstalled(this))
-            donateButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DonateActivity.class)));
-        else
-            donateButton.setOnClickListener(v -> Utils.openURL(PreferencesActivity.this, "https://www.patreon.com/user?u=2966388"));
     }
 
     private void handlePermissions() {
@@ -184,18 +150,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
             case R.id.uninstall:
                 uninstall(this, prefs);
                 return true;
-            case R.id.community:
-                Utils.openURL(this, "https://plus.google.com/communities/104206728795122451273");
-                return true;
-            case R.id.github:
-                Utils.openURL(this, "https://github.com/rosenpin/AlwaysOnDisplayAmoled");
-                return true;
-            case R.id.translate:
-                Utils.openURL(this, "https://crowdin.com/project/always-on-amoled");
-                return true;
-            case R.id.rate:
-                SettingsFragment.openPlayStoreUrl(getPackageName(), this);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -241,7 +195,6 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
         super.onDestroy();
         Globals.colorDialog = null;
         Globals.ownedItems = null;
-        DonateActivity.onDestroy(this);
     }
 
     @Override
