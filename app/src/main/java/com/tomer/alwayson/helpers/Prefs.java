@@ -14,7 +14,6 @@ public class Prefs {
     public boolean showedPluginDialog;
     public boolean showNotification;
     public boolean stopOnCamera;
-    public boolean dozeMode;
     public boolean stopOnGoogleNow;
     public boolean autoNightMode;
     public boolean disableVolumeKeys;
@@ -25,7 +24,6 @@ public class Prefs {
     public boolean notificationPreview;
     public boolean homeButtonDismiss;
     public boolean greenifyEnabled;
-    public boolean batterySaver;
     boolean hasSoftKeys;
     public boolean raiseToWake = true;
 
@@ -79,10 +77,8 @@ public class Prefs {
         showNotification = prefs.getBoolean(KEYS.SHOW_NOTIFICATION.toString(), true);
         permissionGranting = prefs.getBoolean(KEYS.PERMISSION_GRANTING.toString(), false);
         disableVolumeKeys = prefs.getBoolean(KEYS.DISABLE_VOLUME_KEYS.toString(), true);
-        batterySaver = prefs.getBoolean(KEYS.BATTERY_SAVER.toString(), false);
         hasSoftKeys = prefs.getBoolean(KEYS.HAS_SOFT_KEYS.toString(), false);
         greenifyEnabled = prefs.getBoolean(KEYS.GREENIFY.toString(), false);
-        dozeMode = prefs.getBoolean(KEYS.DOZE_MODE.toString(), false);
         startAfterLock = prefs.getBoolean(KEYS.START_AFTER_LOCK.toString(), true);
         notificationPreview = prefs.getBoolean(KEYS.NOTIFICATION_PREVIEW.toString(), true);
         stopOnGoogleNow = prefs.getBoolean(KEYS.STOP_ON_GOOGLE_NOW.toString(), false);
@@ -201,12 +197,10 @@ public class Prefs {
         START_AFTER_LOCK("startafterlock"),
         NOTIFICATION_PREVIEW("notifications_alerts_preview"),
         MEMO_TEXT("memo_text"),
-        DOZE_MODE("doze_mode"),
         GREENIFY("greenify_enabled"),
         EXIT_ANIMATION("exit_animation"),
         SHOWED_DIALOG("showed_dialog"),
         NEVER_SHOW_DIALOG("never_show_dialog"),
-        BATTERY_SAVER("battery_saver"),
         HOME_BUTTON_DISMISS("home_button_dismiss"),
         RAISE_TO_WAKE("raise_to_wake");
 

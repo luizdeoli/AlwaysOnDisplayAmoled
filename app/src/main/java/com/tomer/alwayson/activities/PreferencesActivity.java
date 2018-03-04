@@ -36,8 +36,6 @@ import com.tomer.alwayson.receivers.DAReceiver;
 import com.tomer.alwayson.services.MainService;
 import com.tomer.alwayson.services.StarterService;
 
-import eu.chainfire.libsuperuser.Shell;
-
 public class PreferencesActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback, ContextConstatns {
     private boolean isActive;
     private Prefs prefs;
@@ -48,7 +46,7 @@ public class PreferencesActivity extends AppCompatActivity implements ColorChoos
             ComponentName devAdminReceiver = new ComponentName(context, DAReceiver.class);
             DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
             dpm.removeActiveAdmin(devAdminReceiver);
-            if (prefs.proximityToLock && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && !Shell.SU.available())
+            if (prefs.proximityToLock && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 prefs.setBool(Prefs.KEYS.PROXIMITY_TO_LOCK.toString(), false);
         } catch (Exception ignored) {
         }

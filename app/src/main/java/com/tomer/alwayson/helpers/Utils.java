@@ -46,10 +46,6 @@ public class Utils implements ContextConstatns {
         }
     }
 
-    public static boolean isGooglePlayInstalled(Context context){
-        return isPackageInstalled(context, "com.android.vending");
-    }
-
     public static boolean doesIntentExist(Context context, Intent intent) {
         PackageManager mgr = context.getPackageManager();
         List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -102,32 +98,6 @@ public class Utils implements ContextConstatns {
                     DateUtils.FORMAT_SHOW_DATE
                             | DateUtils.FORMAT_SHOW_WEEKDAY
                             | DateUtils.FORMAT_NO_YEAR).toUpperCase();
-    }
-
-    public static void killBackgroundProcesses(Context context) {
-        List<ApplicationInfo> packages;
-        PackageManager pm;
-        pm = context.getPackageManager();
-        packages = pm.getInstalledApplications(0);
-
-        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        String myPackage = context.getPackageName();
-        for (ApplicationInfo packageInfo : packages) {
-            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) continue;
-            if (packageInfo.packageName.equals(myPackage)) continue;
-            mActivityManager.killBackgroundProcesses(packageInfo.packageName);
-        }
-    }
-
-    public static boolean hasModifySecurePermission(Context activity) {
-        try {
-            int originalBatteryMode = Settings.Secure.getInt(activity.getContentResolver(), LOW_POWER, 0);
-            Settings.Secure.putInt(activity.getContentResolver(), LOW_POWER, 1);
-            Settings.Secure.putInt(activity.getContentResolver(), LOW_POWER, originalBatteryMode);
-            return true;
-        } catch (SecurityException ignored) {
-            return false;
-        }
     }
 
     public static void logDebug(String var1, String var2) {

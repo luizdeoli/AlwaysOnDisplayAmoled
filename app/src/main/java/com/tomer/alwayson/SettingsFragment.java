@@ -42,7 +42,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.tomer.alwayson.activities.Picker;
 import com.tomer.alwayson.activities.PreferencesActivity;
 import com.tomer.alwayson.activities.ReporterActivity;
-import com.tomer.alwayson.helpers.DozeManager;
 import com.tomer.alwayson.helpers.Prefs;
 import com.tomer.alwayson.helpers.Utils;
 import com.tomer.alwayson.receivers.DAReceiver;
@@ -59,7 +58,6 @@ import de.psdev.licensesdialog.licenses.GnuGeneralPublicLicense30;
 import de.psdev.licensesdialog.licenses.MITLicense;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
-import eu.chainfire.libsuperuser.Shell;
 
 public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener, ContextConstatns {
 
@@ -93,11 +91,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         findPreference("proximity_to_lock").setOnPreferenceChangeListener(this);
         findPreference("startafterlock").setOnPreferenceChangeListener(this);
         findPreference("notifications_alerts").setOnPreferenceChangeListener(this);
-        findPreference("doze_mode").setOnPreferenceChangeListener(this);
         findPreference("google_now_shortcut").setOnPreferenceChangeListener(this);
         findPreference("camera_shortcut").setOnPreferenceChangeListener(this);
         findPreference("stop_delay").setOnPreferenceChangeListener(this);
-        findPreference("battery_saver").setOnPreferenceChangeListener(this);
         findPreference("watchface_clock").setOnPreferenceClickListener(this);
         findPreference("watchface_date").setOnPreferenceClickListener(this);
         findPreference("textcolor").setOnPreferenceClickListener(this);
@@ -176,15 +172,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
         version(context);
         openSourceLicenses();
-    }
-
-    private void setUpBatterySaverPermission() {
-        try {
-            Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "pm grant " + getActivity().getPackageName() + " android.permission.WRITE_SECURE_SETTINGS"});
-            process.waitFor();
-        } catch (IOException | InterruptedException ignored) {
-            Log.i(MAIN_ACTIVITY_LOG_TAG, "User doesn't have root");
-        }
     }
 
     private void restartService() {
@@ -326,7 +313,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             restartService();
         }
         if (preference.getKey().equals("proximity_to_lock")) {
-            if (Shell.SU.available() || (Utils.isAndroidNewerThanL() && !Build.MANUFACTURER.equalsIgnoreCase("samsung")))
+            if (Utils.isAndroidNewerThanL() && !Build.MANUFACTURER.equalsIgnoreCase("samsung"))
                 return true;
             else {
                 DevicePolicyManager mDPM = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -347,17 +334,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         }
         if (preference.getKey().equals("startafterlock") && !(boolean) o)
             Snackbar.make(rootView, R.string.warning_4_device_not_secured, 10000).setAction(R.string.action_revert, v -> ((CheckBoxPreference) preference).setChecked(true)).show();
-        if (preference.getKey().equals("doze_mode") && (boolean) o) {
-            if (Shell.SU.available()) {
-                if (!DozeManager.isDumpPermissionGranted(context))
-                    DozeManager.grantPermission(context, "android.permission.DUMP");
-                if (!DozeManager.isDevicePowerPermissionGranted(context))
-                    DozeManager.grantPermission(context, "android.permission.DEVICE_POWER");
-                return true;
-            }
-            Snackbar.make(rootView, R.string.warning_11_no_root, Snackbar.LENGTH_LONG).show();
-            return false;
-        }
         if (preference.getKey().equals("greenify_enabled") && (boolean) o) {
             if (!isPackageInstalled("com.oasisfeng.greenify")) {
                 openPlayStoreUrl("com.oasisfeng.greenify", context);
@@ -380,11 +356,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 e.printStackTrace();
             }
         }
-        if (preference.getKey().equals("battery_saver"))
-            if ((boolean) o) {
-                ((TwoStatePreference) findPreference("doze_mode")).setChecked(true);
-                setUpBatterySaverPermission();
-            }
         return true;
     }
 

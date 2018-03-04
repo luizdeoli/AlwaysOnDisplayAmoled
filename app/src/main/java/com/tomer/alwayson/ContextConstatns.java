@@ -3,7 +3,6 @@ package com.tomer.alwayson;
 import android.service.notification.NotificationListenerService;
 
 import com.tomer.alwayson.activities.PreferencesActivity;
-import com.tomer.alwayson.helpers.DozeManager;
 import com.tomer.alwayson.helpers.GreenifyStarter;
 import com.tomer.alwayson.receivers.BootReceiver;
 import com.tomer.alwayson.receivers.ChargeChangeReceiver;
@@ -37,14 +36,12 @@ public interface ContextConstatns {
     String CHARGER_RECEIVER_LOG_TAG = ChargeChangeReceiver.class.getSimpleName();
     String SCREEN_RECEIVER_LOG_TAG = ScreenReceiver.class.getSimpleName();
     String BOOT_RECEIVER = BootReceiver.class.getSimpleName();
-    String DOZE_MANAGER = DozeManager.class.getSimpleName();
 
     String LOW_POWER = "low_power";
 
     int NOTIFICATION_LISTENER_REQUEST_CODE = 3;
     int CAMERA_PERMISSION_REQUEST_CODE = 5;
     int DEVICE_ADMIN_REQUEST_CODE = 4;
-    int RESULT_BILLING_UNAVAILABLE = 3;
 
     int reportNotificationID = 53;
 

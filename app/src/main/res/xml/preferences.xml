@@ -194,11 +194,6 @@
     <PreferenceCategory android:title="@string/settings_behaviour">
         <SwitchPreference
             android:defaultValue="false"
-            android:key="battery_saver"
-            android:summary="@string/settings_battery_saver_desc"
-            android:title="@string/settings_battery_saver" />
-        <SwitchPreference
-            android:defaultValue="false"
             android:key="raise_to_wake"
             android:summary="@string/settings_raise_to_wake_desc"
             android:title="@string/settings_raise_to_wake" />
@@ -238,11 +233,6 @@
             android:title="@string/settings_proximity" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_watchface_miscellaneous">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="doze_mode"
-            android:summary="@string/settings_doze_desc"
-            android:title="@string/settings_doze" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="greenify_enabled"
