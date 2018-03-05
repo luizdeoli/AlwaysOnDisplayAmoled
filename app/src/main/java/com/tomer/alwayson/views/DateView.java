@@ -19,11 +19,9 @@ public class DateView extends LinearLayout implements ContextConstatns {
     private TextView calendarTV;
     private CalendarView calendarView;
     private int dateStyle;
-    private Context context;
 
     public DateView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addView(inflater.inflate(R.layout.date, null));
     }
@@ -66,10 +64,5 @@ public class DateView extends LinearLayout implements ContextConstatns {
         if (dateStyle == 1)
             if (calendarTV != null)
                 calendarTV.setText(monthAndDayText);
-    }
-
-    public void forceUpdate(String monthAndDayText) {
-        if (calendarTV != null)
-            calendarTV.setText(monthAndDayText);
     }
 }

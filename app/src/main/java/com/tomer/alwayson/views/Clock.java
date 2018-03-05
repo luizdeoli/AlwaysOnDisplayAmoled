@@ -55,6 +55,9 @@ public class Clock extends LinearLayout implements ContextConstatns {
                     textClock.setTextLocale(context.getResources().getConfiguration().locale);
                 }
 
+                Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/roboto_thin.ttf");
+                textClock.setTypeface(font);
+
                 clockWrapper.removeView(clockWrapper.findViewById(R.id.custom_analog_clock));
                 clockWrapper.removeView(clockWrapper.findViewById(R.id.s7_digital));
                 break;
