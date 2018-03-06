@@ -183,13 +183,6 @@
     <string name="settings_watchface_text"><![CDATA[Text]]></string>
     <string name="settings_uninstall_desc">Uninstall the app</string>
     <string name="settings_watchface_clock_desc">Choose your favorite clock style</string>
-    <string name="settings_watch_analog_24_classic">Classic 24h Analog Clock</string>
-    <string name="settings_watch_analog_s7">S7 style analog clock</string>
-    <string name="settings_watch_ticks">Classic 12h Analog Clock</string>
-    <string name="settings_watch_digital_s7">S7 style digital clock</string>
-    <string name="settings_watch_flat_analog">Flat analog style</string>
-    <string name="settings_watch_analog_pebble">Pebble style analog clock</string>
-    <string name="settings_watch_flat_red_analog">Flat analog (red dial)</string>
     <string name="settings_move_disable">Disabled (Not recommended for AMOLED screens)</string>
     <string name="settings_move_move">Move the widget automatically</string>
     <string name="settings_move_animation">Move the widget automatically with an animation</string>

@@ -3,7 +3,6 @@ package com.tomer.alwayson.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -88,17 +87,10 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
             TextView title = (TextView) view.findViewById(R.id.clock_name);
             title.setText(context.getResources().getTextArray(R.array.customize_clock)[position]);
             analogClock.setStyle(context, position, 40, prefs.textColor, prefs.showAmPm);
-            if (position == S7_DIGITAL)
-                if (analogClock.getDigitalS7() != null) {
-                    analogClock.getDigitalS7().setDate(Utils.getDateText(context, true));
-                    analogClock.getDigitalS7().getBatteryTV().setText("");
-                    analogClock.getDigitalS7().getBatteryIV().setImageDrawable(null);
-                    analogClock.getDigitalS7().update(prefs.showAmPm);
-                    analogClock.getDigitalS7().findViewById(R.id.s7_date_tv).getLayoutParams().width = 150;
-                }
 
-            if (position == prefs.clockStyle)
+            if (position == prefs.clockStyle) {
                 select(view);
+            }
 
             view.setOnClickListener(v -> {
                 select(view);
@@ -115,7 +107,7 @@ public class Picker extends AppCompatActivity implements ContextConstatns {
             TextView title = (TextView) view.findViewById(R.id.clock_name);
             title.setText(context.getResources().getTextArray(R.array.customize_date)[position]);
             dateView.setDateStyle(position, 90, prefs.textColor);
-            dateView.update(Utils.getDateText(context, false));
+            dateView.update(Utils.getDateText(context));
             if (position == prefs.dateStyle)
                 select(view);
 

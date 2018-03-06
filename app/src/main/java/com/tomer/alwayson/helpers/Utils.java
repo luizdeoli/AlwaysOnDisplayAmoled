@@ -70,19 +70,11 @@ public class Utils implements ContextConstatns {
         return new Random().nextInt((int) ((max - min) + 1)) + min;
     }
 
-    public static String getDateText(Context context, boolean s7) {
-        if (s7)
-            return DateUtils.formatDateTime(context, Calendar.getInstance().getTime().getTime(),
-                    DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY) + "\n" +
-                    DateUtils.formatDateTime(context, Calendar.getInstance().getTime().getTime(),
-                            DateUtils.FORMAT_SHOW_DATE
-                                    | DateUtils.FORMAT_NO_YEAR
-                                    | DateUtils.FORMAT_ABBREV_MONTH);
-        else
-            return DateUtils.formatDateTime(context, Calendar.getInstance().getTime().getTime(),
-                    DateUtils.FORMAT_SHOW_DATE
-                            | DateUtils.FORMAT_SHOW_WEEKDAY
-                            | DateUtils.FORMAT_NO_YEAR).toUpperCase();
+    public static String getDateText(Context context) {
+        return DateUtils.formatDateTime(context, Calendar.getInstance().getTime().getTime(),
+                DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_SHOW_WEEKDAY
+                        | DateUtils.FORMAT_NO_YEAR).toUpperCase();
     }
 
     public static void logDebug(String var1, String var2) {

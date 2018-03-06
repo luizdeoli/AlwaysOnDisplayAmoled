@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ public class BatteryView extends LinearLayout {
         addView(inflater.inflate(R.layout.battery, null));
     }
 
-    public void init(Context context, DigitalS7 digitalS7, int batteryStyle, boolean s7_digital, int textColor, float textSize) {
+    public void init(Context context, int batteryStyle, int textColor, float textSize) {
         this.context = context;
         this.style = batteryStyle;
         LinearLayout batteryWrapper = (LinearLayout) findViewById(R.id.battery_wrapper);
@@ -39,17 +38,16 @@ public class BatteryView extends LinearLayout {
             case 1:
                 ImageView batteryIV = (ImageView) batteryWrapper.findViewById(R.id.battery_percentage_icon);
                 TextView batteryTV = (TextView) batteryWrapper.findViewById(R.id.battery_percentage_tv);
-                if (!s7_digital) {
-                    batteryTV.setTextColor(textColor);
-                    batteryIV.setColorFilter(textColor, PorterDuff.Mode.SRC_ATOP);
 
-                    batteryTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) (textSize * 0.2 * 1));
-                    ViewGroup.LayoutParams batteryIVlp = batteryIV.getLayoutParams();
-                    batteryIVlp.height = (int) (textSize);
-                    batteryIV.setLayoutParams(batteryIVlp);
-                } else
-                    removeAllViews();
-                batteryReceiver = new BatteryReceiver(s7_digital ? digitalS7.getBatteryTV() : batteryTV, s7_digital ? digitalS7.getBatteryIV() : batteryIV);
+                batteryTV.setTextColor(textColor);
+                batteryIV.setColorFilter(textColor, PorterDuff.Mode.SRC_ATOP);
+
+                batteryTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) (textSize * 0.2 * 1));
+                ViewGroup.LayoutParams batteryIVlp = batteryIV.getLayoutParams();
+                batteryIVlp.height = (int) (textSize);
+                batteryIV.setLayoutParams(batteryIVlp);
+
+                batteryReceiver = new BatteryReceiver(batteryTV, batteryIV);
                 context.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
                 break;
         }

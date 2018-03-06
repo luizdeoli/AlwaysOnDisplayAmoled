@@ -317,16 +317,9 @@ public class MainService extends Service implements SensorEventListener, Context
         clock = (Clock) mainView.findViewById(R.id.clock);
         clock.setStyle(this, prefs.clockStyle, prefs.textSize, prefs.textColor, prefs.showAmPm);
 
-        LinearLayout batteryWrapper = (LinearLayout) mainView.findViewById(prefs.clockStyle != S7_DIGITAL ? R.id.battery_wrapper : R.id.s7_battery_wrapper);
+        LinearLayout batteryWrapper = (LinearLayout) mainView.findViewById(R.id.battery_wrapper);
         batteryView = (BatteryView) mainView.findViewById(R.id.battery);
-        batteryView.init(this, clock.getDigitalS7(), prefs.batteryStyle, prefs.clockStyle == S7_DIGITAL, prefs.textColor, prefs.textSize);
-
-        if (prefs.clockStyle == S7_DIGITAL) {
-            prefs.dateStyle = DISABLED;
-            prefs.batteryStyle = 1;
-            mainView.removeView(dateView);
-            mainView.removeView(batteryWrapper);
-        }
+        batteryView.init(this, prefs.batteryStyle, prefs.textColor, prefs.textSize);
 
         dateView = (DateView) mainView.findViewById(R.id.date);
         dateView.setDateStyle(prefs.dateStyle, prefs.textSize, prefs.textColor);
@@ -348,10 +341,9 @@ public class MainService extends Service implements SensorEventListener, Context
                 Utils.logDebug(MAIN_SERVICE_LOG_TAG, "Refresh");
                 UIHandler.post(() -> {
                     if (clock != null) {
-                        if (clock.getAnalogClock() != null)
+                        if (clock.getAnalogClock() != null) {
                             clock.getAnalogClock().setTime(Calendar.getInstance());
-                        if (prefs.clockStyle == S7_DIGITAL)
-                            clock.getDigitalS7().update(prefs.showAmPm);
+                        }
                     }
                 });
                 if (longRefresh[0])
@@ -365,19 +357,17 @@ public class MainService extends Service implements SensorEventListener, Context
     private void longRefresh() {
         if (!firstRefresh && prefs.moveWidget != DISABLED)
             ViewUtils.move(getApplicationContext(), mainView, prefs.moveWidget == MOVE_WITH_ANIMATION, prefs.orientation, isBig());
-        String monthAndDayText = Utils.getDateText(getApplicationContext(), prefs.clockStyle == S7_DIGITAL);
+        String monthAndDayText = Utils.getDateText(getApplicationContext());
         Utils.logDebug(MAIN_SERVICE_LOG_TAG, "Long Refresh");
         UIHandler.post(() -> {
             dateView.update(monthAndDayText);
-            if (prefs.clockStyle == S7_DIGITAL)
-                clock.getDigitalS7().setDate(monthAndDayText);
         });
         if (firstRefresh)
             firstRefresh = false;
     }
 
     private boolean isBig() {
-        return dateView.isFull() || clock.isFull() || !prefs.memoText.isEmpty() || musicPlayer.isShown();
+        return dateView.isFull() || !prefs.memoText.isEmpty() || musicPlayer.isShown();
     }
 
     private void setLights(boolean state, boolean nightMode, boolean first) {

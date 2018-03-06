@@ -75,11 +75,4 @@ public interface ContextConstatns {
 
     int DIGITAL_CLOCK = 1;
     int ANALOG_CLOCK = 2;
-    int S7_DIGITAL = 3;
-    int ANALOG24_CLOCK = 4;
-    int S7_CLOCK = 5;
-    int PEBBLE_CLOCK = 6;
-    int FLAT_CLOCK = 7;
-    int FLAT_RED_CLOCK = 8;
-    int FLAT_STANDARD_TICKS = 9;
 }
