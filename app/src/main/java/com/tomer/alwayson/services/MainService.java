@@ -78,7 +78,7 @@ public class MainService extends Service implements SensorEventListener, Context
     private boolean demo;
     private boolean raiseToWake;
     private boolean refreshing = true;
-    private int refreshDelay = 12000;
+    private int refreshDelay = 30000;
     private FrameLayout blackScreen;
     private Timer refreshTimer;
     private MessageBox notificationsMessageBox;
